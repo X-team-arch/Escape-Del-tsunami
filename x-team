@@ -38,7 +38,7 @@ local KeyBox = KeyTab:CreateInput({
     end,
 })
 
--- Botón Get Key: copia link + intenta abrirlo directamente en navegador
+-- Botón Get Key: copia el link que me pasaste + intenta abrirlo
 local GetKeyButton = KeyTab:CreateButton({
     Name = "📋 Get Key (Comunidad Roblox)",
     Callback = function()
@@ -167,7 +167,7 @@ function CreateHackerMenu()
         end,
     })
 
-    -- Otras tabs (Exploits, Visual)
+    -- Otras tabs (Exploits, Visual) — las dejé igual
     local ExploitTab = Window:CreateTab("⚡ Exploits Extra", 4483362458)
     ExploitTab:CreateToggle({
         Name = "Delete VIP Walls / Barriers",
@@ -209,4 +209,4 @@ end
 
 -- Tus funciones (AutoRareBrainrots, EnableRareESP, etc.) se mantienen iguales del código que me pasaste
 
-print("Script actualizado - Get Key copia y abre comunidad")
+print("Script actualizado - Get Key apunta a https://roblox.com.ge/communities/4362678772/")
