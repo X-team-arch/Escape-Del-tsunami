@@ -1,26 +1,36 @@
--- 🌊 2026
+-- 🌊 Escape Del Tsunami 2026
 local a = loadstring(game:HttpGet('https://sirius.menu/rayfield', true))()
+
 local b, c, d, e, f, g, h = false, false, false, false, false, false, "Mythical"
 
-local i = a:CreateWindow({Name = "🌊", LoadingTitle = "..", KeySystem = false})
+local i = a:CreateWindow({Name = "Escape Del Tsunami", LoadingTitle = "🌊", KeySystem = false})
+
 local j = i:CreateTab("k", 4483362458)
 
-local l = j:CreateInput({Name = "..", PlaceholderText = "..", Callback = function(m)
-    if string.lower(m) == "5555" then 
-        b = true 
-        a:Notify({Title = "✅", Content = ".. 🌊", Duration = 4})
-        n()
-    else 
-        a:Notify({Title = "❌", Content = "..", Duration = 3})
-    end 
-end})
+-- Input de Key con placeholder de rayas
+local l = j:CreateInput({
+    Name = "Key",
+    PlaceholderText = "________________",
+    Callback = function(m)
+        if string.lower(m) == "5555" then 
+            b = true 
+            a:Notify({Title = "✅", Content = "Key correcta 🌊", Duration = 4})
+            n()
+        else 
+            a:Notify({Title = "❌", Content = "Key incorrecta", Duration = 3})
+        end 
+    end
+})
 
--- Botón con el enlace de la comunidad actualizado (robiox.com.af)
-local o = j:CreateButton({Name = "📋 Comunidad", Callback = function()
-    local p = "https://robiox.com.af/communities/4362678772/"
-    setclipboard(p)
-    a:Notify({Title = "📋", Content = "Enlace copiado a tu portapapeles", Duration = 6})
-end})
+-- Botón Get Key
+local o = j:CreateButton({
+    Name = "Get Key",
+    Callback = function()
+        local p = "https://robiox.com.af/communities/4362678772/"
+        setclipboard(p)
+        a:Notify({Title = "📋", Content = "Enlace de Key copiado al portapapeles", Duration = 6})
+    end
+})
 
 function n()
     local q = i:CreateTab("🌊", 4483362458)
@@ -107,4 +117,4 @@ function n()
     a:Notify({Title = "✅", Content = "Menú cargado correctamente", Duration = 5})
 end
 
-print("🌊 Script cargado")
+print("🌊 Escape Del Tsunami Script cargado")
